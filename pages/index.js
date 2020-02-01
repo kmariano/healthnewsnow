@@ -37,12 +37,12 @@ const HomePage = () => {
       return <h1>No results</h1>
     }
 
-    return data.items.map(item => {
+    return data.items.map((item, i) => {
       return (
-        <>
+        <div key={i}>
           <h1>{item.title}</h1>
           <a href={item.link} style={{ fontSize: 16 }}>{item.link}</a>
-        </>
+        </div>
       )
     });
   }
