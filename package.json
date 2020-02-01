@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/kmariano/tad-hack-2020-phx#readme",
   "dependencies": {
+    "@avaya/cpaas": "^0.9.0",
     "isomorphic-fetch": "^2.2.1",
     "next": "^9.2.1",
     "query-string": "^6.10.1",
