@@ -16,9 +16,9 @@ const fetcher = async (search) => {
 }
 
 const HomePage = () => {
-  const { data, loading, error } = useSWR('coronavirus', fetcher);
+  const { data, error } = useSWR('coronavirus', fetcher);
 
-  console.log({ data, loading, error });
+  console.log({ data, error });
 
   return <div>Welcome to Next.js!</div>;
 }
