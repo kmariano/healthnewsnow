@@ -7,7 +7,7 @@ const TopBar = () => {
         <image style={{ height: 75, width: 200, background: 'red' }} src="/logo-white.png" />
 
         <Link href='/signup'>
-          <button>subscribe</button>
+          <button style={{ color: 'white' }}>subscribe</button>
         </Link>
       </div>
     </div>
