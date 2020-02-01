@@ -1,11 +1,13 @@
-import "../styles/index.css";
-
 import Link from "next/link";
+
+import TopBar from '../components/top-bar';
+import "../styles/index.css";
 
 const Home = () => {
   return (
     <>
-      <h1>Home</h1>
+      <TopBar />
+
       <Link href="signup">
         <h3>Sign Up</h3>
       </Link>

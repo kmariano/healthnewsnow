@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-blue-500 p-12;
+.top-bar__container {
+  background-color: #0C5555;
+  height: 125px;
 }
