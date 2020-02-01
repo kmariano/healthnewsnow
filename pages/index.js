@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import fetch from 'isomorphic-fetch';
 import useSWR from 'swr';
 import queryString from 'query-string';
@@ -19,13 +19,56 @@ const fetcher = async (search) => {
 }
 
 const HomePage = () => {
-  const { data, error } = useSWR('coronavirus', fetcher);
+  const [search, setSearch] = useState('');
 
-  if (error || (data && data.error)) {
-    return <h1>Error!</h1>
+  const { data, error } = useSWR(search, fetcher);
+
+  const renderData = () => {
+    if (!search) {
+      return <h1>Enter a search term...</h1>
+    }
+
+    if (error || !data || (data && data.error)) {
+      return <h1>Error!</h1>
+    }
+
+    if (!data.items) {
+      return <h1>No results</h1>
+    }
+
+    return data.items.map(item => {
+      return (
+        <>
+          <h1>{item.title}</h1>
+          <a href={item.link} style={{ fontSize: 16 }}>{item.link}</a>
+        </>
+      )
+    });
   }
 
-  return <h1>It worked!</h1>;
+  return (
+    <div
+      style={{
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
+      <h1 style={{ paddingTop: 16, paddingBottom: 16 }}>
+        Search for health updates in your area
+      </h1>
+
+      <input
+        name='search'
+        value={search}
+        onChange={e => setSearch(e.target.value)}
+        style={{ fontSize: 24 }}
+      />
+
+      {renderData()}
+    </div>
+  )
 }
 
 export default HomePage;
