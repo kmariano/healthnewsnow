@@ -39,7 +39,14 @@ const HomePage = () => {
 
     return data.items.map((item, i) => {
       return (
-        <div key={i}>
+        <div
+          key={i}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
           <h1>{item.title}</h1>
           <a href={item.link} style={{ fontSize: 16 }}>{item.link}</a>
         </div>
