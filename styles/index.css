@@ -3,6 +3,13 @@
 @tailwind utilities;
 
 .top-bar__container {
-  background-color: #0C5555;
   height: 125px;
+  background-color: #0C5555;
+}
+
+.top-bar__container_wrap {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 25px;
 }
