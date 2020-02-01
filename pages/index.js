@@ -37,6 +37,21 @@ const HomePage = () => {
       return <h1>No results</h1>
     }
 
+    data.items.sort((a, b) => {
+      const aDays = a.snippet.split(' days ago ');
+      const bDays = b.snippet.split(' days ago ');
+      const aHours = a.snippet.split(' hours ago ');
+      const bHours = b.snippet.split(' hours ago ');
+
+      if (aDays.length > 1 && bDays.length > 1) {
+        return aDays[0] - bDays[0];
+      } else if (aHours.length > 1 && bHours.length > 1) {
+        return aHours[0] - bHours[0];
+      } else {
+        return 1;
+      }
+    });
+
     return data.items.map((item, i) => {
       return (
         <div
@@ -48,6 +63,7 @@ const HomePage = () => {
             alignItems: 'center'
           }}>
           <h1>{item.title}</h1>
+          <h2>{item.snippet.split(' ago ... ')[0]}</h2>
           <a href={item.link} style={{ fontSize: 16 }}>{item.link}</a>
         </div>
       )
