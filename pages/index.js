@@ -20,11 +20,12 @@ const fetcher = async (search) => {
 
 const HomePage = () => {
   const [search, setSearch] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const { data, error } = useSWR(search, fetcher);
+  const { data, error } = useSWR(searchTerm, fetcher);
 
   const renderData = () => {
-    if (!search) {
+    if (!searchTerm) {
       return <h1>Enter a search term...</h1>
     }
 
@@ -65,6 +66,13 @@ const HomePage = () => {
         onChange={e => setSearch(e.target.value)}
         style={{ fontSize: 24 }}
       />
+
+      <button
+        onClick={() => setSearchTerm(search)}
+        style={{ fontSize: 24, marginTop: 16 }}
+      >
+        Search
+      </button>
 
       {renderData()}
     </div>
