@@ -34,6 +34,7 @@ const potentialThreats = [
 ];
 
 const generateTopicSelections = topics => {
+  console.log("Topics to generate", topics);
   const allTopics = [...knownIllnesses, ...potentialThreats];
   const topicSelections = allTopics.map(a => {
     const selected = topics.includes(a);
@@ -46,12 +47,13 @@ const generateTopicSelections = topics => {
   });
   return topicSelections;
 };
+
 const SignupTopics = ({ userId }) => {
   const { data, error } = useSWR(`/api/users/${userId}`, fetcher);
   const [userTopicSelections, setUserTopicSelections] = useState([]);
   useEffect(() => {
     if (data) {
-      const topics = _.get(data, "topics", []);
+      const topics = _.get(data, ".topics", []);
       setUserTopicSelections(generateTopicSelections(topics));
     }
   }, [data]);
@@ -76,11 +78,15 @@ const SignupTopics = ({ userId }) => {
   const saveTopics = () => {
     const userTopics =
       userTopicSelections.filter(u => u.selected).map(u => u.title) || [];
+    console.log("User Topics", userTopics);
     fetch(`/api/${userId}/topics`, {
       method: "POST",
-      body: {
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
         topics: userTopics
-      }
+      })
     })
       .then(res => {
         return res.json();
