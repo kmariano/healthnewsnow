@@ -34,7 +34,29 @@ const SignupSuccess = ({ userId }) => {
 
       fetch(BASE_SEARCH_URL + query)
         .then(res => res.json())
-        .then(data => setArticles(data.items.slice(0, 3)))
+        .then(data => {
+          setArticles(data.items.slice(0, 3))
+          return data.items.slice(0, 3);
+        })
+        .then(newArticles => {
+          return fetch(`/api/${currentUser.id}/latest-news`, {
+            method: 'POST',
+            body: JSON.stringify({
+              to: currentUser.phoneNumber,
+              message: `
+                Thank you for signing up for HealthNewsNow.\n
+                Here is an update on the topic ${currentUser.topics[0]}\n
+                ${newArticles[0].title}\n
+                ${newArticles[0].link}\n
+                ${newArticles[1].title}\n
+                ${newArticles[1].link}\n
+                ${newArticles[2].title}\n
+                ${newArticles[2].link}
+              `
+            })
+          });
+        })
+        .then(console.log)
         .catch(console.error);
     }
   }, [currentUser]);
@@ -54,8 +76,7 @@ const SignupSuccess = ({ userId }) => {
         <div className={"signup-success__container--green"}>
           <p className="signup-success__article-title">{currentUser.topics[0]}</p>
           {articles.map(a => {
-            console.log(a)
-            return <p style={{ padding: '12px 0' }}><a key={a} href={a.link} className="signup-success__article-item">{a.title}</a></p>;
+            return <p key={a.title} style={{ padding: '12px 0' }}><a href={a.link} className="signup-success__article-item">{a.title}</a></p>;
           })}
         </div>
       </div>
