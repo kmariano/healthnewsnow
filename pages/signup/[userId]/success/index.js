@@ -1,26 +1,12 @@
 import TopBar from "../../../../components/top-bar";
 import "./index.css";
 import useSWR from "swr";
-import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import fetch from "isomorphic-fetch";
+import _ from 'lodash';
+import queryString from 'query-string';
 
-const DATA = [
-  {
-    title: "Coronavirus",
-    articles: [
-      "Something bad is happening!",
-      "Some person just got infected..."
-    ]
-  },
-  {
-    title: "Chemical Spill",
-    articles: [
-      "Something else bad is happening!",
-      "Some other person just got infected..."
-    ]
-  }
-];
+const BASE_SEARCH_URL = 'https://www.googleapis.com/customsearch/v1?';
 
 async function fetcher(path) {
   const res = await fetch(path);
@@ -31,13 +17,30 @@ async function fetcher(path) {
 const SignupSuccess = ({ userId }) => {
   const { data, error } = useSWR(`/api/users/${userId}`, fetcher);
   const [currentUser, setCurrentUser] = useState({});
+  const [articles, setArticles] = useState([]);
   useEffect(() => {
     if (data) {
       setCurrentUser(data);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (!_.isEmpty(currentUser)) {
+      const query = queryString.stringify({
+        key: process.env.googleAPIKey,
+        cx: process.env.googleSearchCX,
+        q: `${currentUser.topics[0]} "${currentUser.city}"`
+      });
+
+      fetch(BASE_SEARCH_URL + query)
+        .then(res => res.json())
+        .then(data => setArticles(data.items.slice(0, 3)))
+        .catch(console.error);
+    }
+  }, [currentUser]);
+
   if (error) return <div>Error finding user with {userId}</div>;
-  if (!data) return <div>Loading....</div>;
+  if (!data || _.isEmpty(currentUser)) return <div>Loading....</div>;
   return (
     <>
       <TopBar altColor />
@@ -45,26 +48,16 @@ const SignupSuccess = ({ userId }) => {
       <div className="signup-success__banner">DASHBOARD</div>
 
       <div className="signup-success__max-width">
-        <p className="signup-success__title--big">User's Dashboard</p>
+        <p className="signup-success__title--big">{`${currentUser.name}'s Dashboard`}</p>
         <p className="signup-success__title">Topics Selected</p>
 
-        {DATA.map((item, i) => {
-          return (
-            <div
-              key={i}
-              className={
-                i % 2 === 0
-                  ? "signup-success__container--green"
-                  : "signup-success__container"
-              }
-            >
-              <p className="signup-success__article-title">{item.title}</p>
-              {item.articles.map(a => {
-                return <p className="signup-success__article-item">{a}</p>;
-              })}
-            </div>
-          );
-        })}
+        <div className={"signup-success__container--green"}>
+          <p className="signup-success__article-title">{currentUser.topics[0]}</p>
+          {articles.map(a => {
+            console.log(a)
+            return <p style={{ padding: '12px 0' }}><a key={a} href={a.link} className="signup-success__article-item">{a.title}</a></p>;
+          })}
+        </div>
       </div>
     </>
   );
