@@ -2,40 +2,10 @@ import Card from "../../../../components/card";
 import TopBar from "../../../../components/top-bar";
 import fetch from "isomorphic-fetch";
 import "./index.css";
-import { useSWR } from "swr";
+import useSWR from "swr";
+import { useState, useEffect } from "react";
+import TopicsList from "../../../../components/topics-list";
 
-const data = [
-  {
-    title: "Something Bad",
-    image:
-      "https://i0.wp.com/cdn-prod.medicalnewstoday.com/content/images/articles/322/322223/herpesvirus-in-purple.jpg?w=1155&h=1541"
-  },
-  {
-    title: "Something Bad",
-    image:
-      "https://i0.wp.com/cdn-prod.medicalnewstoday.com/content/images/articles/322/322223/herpesvirus-in-purple.jpg?w=1155&h=1541"
-  },
-  {
-    title: "Something Bad",
-    image:
-      "https://i0.wp.com/cdn-prod.medicalnewstoday.com/content/images/articles/322/322223/herpesvirus-in-purple.jpg?w=1155&h=1541"
-  },
-  {
-    title: "Something Bad",
-    image:
-      "https://i0.wp.com/cdn-prod.medicalnewstoday.com/content/images/articles/322/322223/herpesvirus-in-purple.jpg?w=1155&h=1541"
-  },
-  {
-    title: "Something Bad",
-    image:
-      "https://i0.wp.com/cdn-prod.medicalnewstoday.com/content/images/articles/322/322223/herpesvirus-in-purple.jpg?w=1155&h=1541"
-  },
-  {
-    title: "Something Bad",
-    image:
-      "https://i0.wp.com/cdn-prod.medicalnewstoday.com/content/images/articles/322/322223/herpesvirus-in-purple.jpg?w=1155&h=1541"
-  }
-];
 /**
  *
  * Get the user from the userId
@@ -48,40 +18,109 @@ async function fetcher(path) {
   const json = await res.json();
   return json;
 }
+
+const knownIllnesses = [
+  "Coronavirus",
+  "Vaping Lung Disease",
+  "Ebola",
+  "Influenza",
+  "Cholera",
+  "Meningitis"
+];
+const potentialThreats = [
+  "Bioterrrorism",
+  "Chemical Spill",
+  "Unknown Outbreak"
+];
+
+const generateTopicSelections = topics => {
+  const allTopics = [...knownIllnesses, ...potentialThreats];
+  const topicSelections = allTopics.map(a => {
+    const selected = topics.includes(a);
+    return {
+      title: a,
+      imageUrl:
+        "https://i0.wp.com/cdn-prod.medicalnewstoday.com/content/images/articles/322/322223/herpesvirus-in-purple.jpg?w=1155&h=1541",
+      selected
+    };
+  });
+  return topicSelections;
+};
 const SignupTopics = ({ userId }) => {
-  const { data, error } = useSWR(`/api/users/${userId}`);
+  const { data, error } = useSWR(`/api/users/${userId}`, fetcher);
+  const [userTopicSelections, setUserTopicSelections] = useState([]);
+  useEffect(() => {
+    if (data) {
+      const topics = _.get(data, "topics", []);
+      setUserTopicSelections(generateTopicSelections(topics));
+    }
+  }, [data]);
   if (error) return <div>Error finding user with {userId}</div>;
   if (!data) return <div>Loading....</div>;
+  // const topics = _.get(data, "topics", []);
+  // console.log("topics", topics);
+  // const topicSelections = generateTopicSelections(topics);
+
+  const clearTopics = () => {
+    const clearedTopics = userTopicSelections.map(u => {
+      return { ...u, selected: false };
+    });
+    setUserTopicSelections(clearedTopics);
+  };
+
+  const onTopicsChanged = ({ title, selected }) => {
+    const changedTopics = userTopicSelections.map(u => {
+      if (u.title === title) return { ...u, selected };
+      else return u;
+    });
+    setUserTopicSelections(changedTopics);
+  };
+  const saveTopics = () => {};
+
   return (
     <>
       <TopBar altColor />
-
       <div className="topics__banner">
         <p className="topics__banner-text">TOPIC SELECTION</p>
       </div>
-
-      {/* <div className="topics__container">
+      <div className="topics__container">
         <p className="topics__title">Known Illnesses</p>
-        <div className="topics__card-wrap">
-          {data.map((item, i) => {
-            return <Card key={i} title={item.title} image={item.image} />;
-          })}
-        </div>
+        <TopicsList
+          topics={userTopicSelections.filter(u =>
+            knownIllnesses.includes(u.title)
+          )}
+          onTopicsUpdated={onTopicsChanged}
+        />
+      </div>
 
+      <div className="topics__container">
         <p className="topics__title">Potential Threats</p>
-        <div className="topics__card-wrap">
-          {data.map((item, i) => {
-            return <Card key={i} title={item.title} image={item.image} />;
-          })}
-        </div>
-      </div> */}
+        <TopicsList
+          topics={userTopicSelections.filter(u =>
+            potentialThreats.includes(u.title)
+          )}
+          onTopicsUpdated={onTopicsChanged}
+        />
+      </div>
+      <div>
+        <button
+          name="clearButton"
+          className="clearButton"
+          onClick={clearTopics}
+        >
+          CLEAR
+        </button>
+        <button name="clearButton" className="clearButton" onClick={saveTopics}>
+          SAVE
+        </button>
+      </div>
     </>
   );
 };
 SignupTopics.getInitialProps = async ({ asPath }) => {
-  const USER_ID_PATH_INDEX = 1;
+  const USER_ID_PATH_INDEX = 2;
   console.log(asPath.split("/"));
-  const cheeseId = asPath.split("/")[1];
+  const userId = asPath.split("/")[USER_ID_PATH_INDEX];
   return { userId };
 };
 export default SignupTopics;
