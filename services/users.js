@@ -42,3 +42,14 @@ export const findById = async userId => {
   }
   return null;
 };
+
+export const setTopics = async ({ userId, topics }) => {
+  const documentPath = `users/${userId}`;
+  const userDocReference = await firestore.doc(documentPath);
+  await userDocReference.set({ topics });
+  const userDocSnapShot = userDocReference.get();
+  return {
+    id: userDocSnapshot.id,
+    ...userDocSnapShot.data()
+  };
+};
