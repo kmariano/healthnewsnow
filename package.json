@@ -19,8 +19,9 @@
   },
   "homepage": "https://github.com/kmariano/tad-hack-2020-phx#readme",
   "dependencies": {
-    "@zeit/next-css": "^1.0.1",
     "@avaya/cpaas": "^0.9.0",
+    "@google-cloud/firestore": "^3.4.1",
+    "@zeit/next-css": "^1.0.1",
     "isomorphic-fetch": "^2.2.1",
     "next": "^9.2.1",
     "query-string": "^6.10.1",

@@ -1,0 +1,23 @@
+.topics__container {
+  max-width: 800px;
+  margin: auto;
+}
+
+.topics__banner {
+  background-color: #0C5555;
+}
+
+.topics__banner-text {
+  font-size: 32px;
+  color: white;
+  text-align: center;
+
+  padding: 28px 0;
+}
+
+.topics__title {
+  font-size: 28px;
+  color: #787878;
+
+  padding: 16px 0;
+}
