@@ -3,6 +3,10 @@
   background-color: #0C5555;
 }
 
+.top-bar__container--alt {
+  background-color: white;
+}
+
 .top-bar__container_wrap {
   display: flex;
   justify-content: space-between;
@@ -25,4 +29,8 @@
 
   margin-right: 24px;
   height: fit-content;
+}
+
+.top-bar__button--alt {
+  color: #0C5555;
 }
