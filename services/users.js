@@ -49,7 +49,7 @@ export const setTopics = async ({ userId, topics }) => {
   await userDocReference.set({ topics }, { merge: true });
 
   const userDocSnapShot = await userDocReference.get();
-  console.log("Document Snapshot", userDocSnapShot.data());
+  // console.log("Document Snapshot", userDocSnapShot.data());
   return {
     id: userDocSnapshot.id,
     ...userDocSnapShot.data()
