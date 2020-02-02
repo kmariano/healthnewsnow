@@ -1,0 +1,17 @@
+.top-bar__container {
+  height: 125px;
+  background-color: #0C5555;
+}
+
+.top-bar__container_wrap {
+  display: flex;
+  justify-content: space-between;
+}
+
+.top-bar__image {
+  height: 125px;
+}
+
+.top-bar__button-container {}
+
+.top-bar__button {}
