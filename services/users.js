@@ -29,3 +29,15 @@ export const create = async ({ name, phoneNumber, city, state }) => {
   const newUser = await newUserDocReference.get();
   return { id: newUser.id, ...newUser.data() };
 };
+
+export const findById = async userId => {
+  const documentPath = `users/${userId}`;
+  const userDocSnapShot = await firestore.doc(documentPath).get();
+  if (userDocSnapShot.exists) {
+    return {
+      id: userDocSnapShot.id,
+      ...userDocSnapShot.data()
+    };
+  }
+  return null;
+};
