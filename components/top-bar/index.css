@@ -10,6 +10,9 @@
 .top-bar__container_wrap {
   display: flex;
   justify-content: space-between;
+
+  max-width: 800px;
+  margin: auto;
 }
 
 .top-bar__image {
