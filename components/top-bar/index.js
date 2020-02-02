@@ -19,16 +19,12 @@ const TopBar = ({ altColor = false }) => {
               register
             </button>
           </Link>
-          <Link href='/about'>
-            <button className={`top-bar__button ${altColor ? 'top-bar__button--alt' : ''}`}>
-              about
-            </button>
-          </Link>
-          <Link href='/faq'>
-            <button className={`top-bar__button ${altColor ? 'top-bar__button--alt' : ''}`}>
-              faq
-            </button>
-          </Link>
+          <button className={`top-bar__button ${altColor ? 'top-bar__button--alt' : ''}`}>
+            about
+          </button>
+          <button className={`top-bar__button ${altColor ? 'top-bar__button--alt' : ''}`}>
+            faq
+          </button>
         </div>
       </div>
     </div>
