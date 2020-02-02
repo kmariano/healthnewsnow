@@ -8,6 +8,17 @@ const Home = () => {
     <>
       <TopBar altColor />
 
+      <div className='home-page__splash-banner'>
+        <div className='home-page__splash-text-container'>
+          <p className='home-page__splash-text'>
+            {'Register now to receive breaking health alerts direct to your phone'}
+          </p>
+          <Link href="signup">
+            <button className='home-page__button'>REGISTER</button>
+          </Link>
+        </div>
+      </div>
+
       <div className='home-page__banner'>
         <p className='home-page__banner-text'>
           {`HealthNewsNow is an intelligent text alert system that scrapes news
@@ -28,12 +39,6 @@ const Home = () => {
           adult children of the elderly, and those that care for these vulnerable
           populations (such as teachers and nurses).`}
         </p>
-      </div>
-
-      <div className='home-page__button-container'>
-        <Link href="signup">
-          <button className='home-page__button'>Sign Up</button>
-        </Link>
       </div>
     </>
   );

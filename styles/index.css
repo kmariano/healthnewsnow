@@ -15,9 +15,24 @@
   padding: 48px;
 }
 
-.home-page__button-container {
+.home-page__splash-text-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: flex-end;
+
+  max-width: 800px;
+  margin: auto;
+  padding: 0 48px;
+}
+
+.home-page__splash-text {
+  font-size: 18px;
+  color: white;
+  text-align: center;
+
+  max-width: 180px;
+  margin-right: 8px;
+  margin-top: 32px;
 }
 
 .home-page__button {
@@ -29,4 +44,12 @@
 
   padding: 8px 48px;
   margin-top: 24px;
+}
+
+.home-page__splash-banner {
+  height: 225px;
+
+  background-position: center;
+  background-size: cover;
+  background-image: url('https://i0.wp.com/cdn-prod.medicalnewstoday.com/content/images/articles/322/322223/herpesvirus-in-purple.jpg?w=1155&h=1541');
 }
