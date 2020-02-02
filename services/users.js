@@ -33,6 +33,7 @@ export const create = async ({ name, phoneNumber, city, state }) => {
 export const findById = async userId => {
   const documentPath = `users/${userId}`;
   const userDocSnapShot = await firestore.doc(documentPath).get();
+
   if (userDocSnapShot.exists) {
     return {
       id: userDocSnapShot.id,

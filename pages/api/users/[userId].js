@@ -6,7 +6,9 @@ export default async (req, res) => {
 
     try {
       const user = await users.findById(userId);
-      return user ? res.status(200).json(user) : res.status(404);
+      return user
+        ? res.status(200).json(user)
+        : res.status(404).send("User not found");
     } catch (err) {
       return res.status(500).json(err);
     }
