@@ -50,7 +50,6 @@
   background-color: #0C5555;
 
   padding: 8px 48px;
-  margin-top: 24px;
 }
 
 .home-page__splash-banner {
@@ -59,4 +58,21 @@
   background-position: center;
   background-size: cover;
   background-image: url('/banner.png');
+}
+
+.home-page__footer-container {
+  max-width: 800px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 48px 0;
+}
+
+.home-page__footer-text {
+  max-width: 400px;
+  font-size: 20px;
+  color: grey;
+
+  margin-right: 32px;
 }
