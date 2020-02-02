@@ -20,6 +20,7 @@ const Home = () => {
       </div>
 
       <div className='home-page__banner'>
+        <h1 className='home-page__banner-title'>Who We Are</h1>
         <p className='home-page__banner-text'>
           {`HealthNewsNow is an intelligent text alert system that scrapes news
           articles local to a user’s location to notify concerned citizens about
