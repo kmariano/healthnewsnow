@@ -1,49 +1,66 @@
 import { useForm } from "react-hook-form";
-// import fetch from "isomorphic-fetch";
-
-import TopBar from '../../components/top-bar';
-import './index.css';
+import fetch from "isomorphic-fetch";
+import { useRouter } from "next/router";
+import TopBar from "../../components/top-bar";
+import "./index.css";
 
 const Signup = () => {
   const { register, handleSubmit, watch, errors } = useForm();
-
-  const onSubmit = ({ name, phoneNumber, region }) => {
-    console.log("data", name, phoneNumber, region);
-    // fetch("/api/donation", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify({
-    //     to: phoneNumber,
-    //     amount
-    //   })
-    // }).then(res => console.log("RESPONSE", res));
+  const router = useRouter();
+  const onSubmit = ({ name, phoneNumber, city, state }) => {
+    fetch("/api/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name,
+        phoneNumber,
+        city,
+        state
+      })
+    })
+      .then(res => {
+        return res.json();
+        // const newUser = res;
+        // console.log("newUser", newUser);
+        // const userPagePath = `/users/${newUser.id}`;
+        // router.push(userPagePath);
+      })
+      .then(newUser => {
+        console.log("New User", newUser);
+        const userPagePath = `/users/${newUser.id}`;
+        router.push(userPagePath);
+      })
+      .catch(err => console.log("failed", err));
   };
 
   return (
     <>
       <TopBar />
 
-      <div className='signup-form__banner'>
-        <p className='signup-form__banner-text'>
+      <div className="signup-form__banner">
+        <p className="signup-form__banner-text">
           {`Staying informed of the latest health news is crucial to keeping your
           family safe. Sign up today to be notified of known and developing threats.`}
         </p>
       </div>
 
-      <div className='signup-form__title-container'>
+      <div className="signup-form__title-container">
         <div>
-          <img src='/logo-blue.png' className='signup-form__logo' />
-          <h1 className='signup-form__title'>Mobile Sign Up</h1>
+          <img src="/logo-blue.png" className="signup-form__logo" />
+          <h1 className="signup-form__title">Mobile Sign Up</h1>
         </div>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className='signup-form__container'>
-        <div className='signup-form__input-wrap'>
-          <label className='signup-form__label'>Name</label>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="signup-form__container"
+      >
+        <div className="signup-form__input-wrap">
+          <label className="signup-form__label">Name</label>
           <input
-            className='signup-form__input'
+            className="signup-form__input"
             ref={register}
             name="name"
             type="text"
@@ -51,10 +68,10 @@ const Signup = () => {
           />
         </div>
 
-        <div className='signup-form__input-wrap'>
-          <label className='signup-form__label'>Mobile Number</label>
+        <div className="signup-form__input-wrap">
+          <label className="signup-form__label">Mobile Number</label>
           <input
-            className='signup-form__input'
+            className="signup-form__input"
             ref={register}
             name="phoneNumber"
             type="tel"
@@ -62,18 +79,28 @@ const Signup = () => {
           />
         </div>
 
-        <div className='signup-form__input-wrap'>
-          <label className='signup-form__label'>City, County, or State</label>
+        <div className="signup-form__input-wrap">
+          <label className="signup-form__label">City</label>
           <input
-            className='signup-form__input'
+            className="signup-form__input"
             ref={register}
-            name="region"
+            name="city"
+            type="text"
+            required
+          />
+        </div>
+        <div className="signup-form__input-wrap">
+          <label className="signup-form__label">State</label>
+          <input
+            className="signup-form__input"
+            ref={register}
+            name="state"
             type="text"
             required
           />
         </div>
 
-        <button className='signup-form__button'>REGISTER</button>
+        <button className="signup-form__button">REGISTER</button>
       </form>
     </>
   );
