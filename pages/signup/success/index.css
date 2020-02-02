@@ -1,0 +1,27 @@
+.signup-success__banner {
+  background-color: #0f5656;
+  text-align: center;
+  color: white;
+  font-size: 32px;
+  letter-spacing: 1px;
+  padding: 28px 0;
+}
+
+.signup-success__max-width {
+  max-width: 800px;
+  margin: auto;
+
+  padding: 0 48px;
+}
+
+.signup-success__title {
+  color: grey;
+  font-size: 20px;
+  padding: 16px 0;
+}
+
+.signup-success__title--big {
+  color: grey;
+  font-size: 36px;
+  padding-top: 28px;
+}
