@@ -6,10 +6,12 @@ const TopBar = ({ altColor = false }) => {
   return (
     <div className={`top-bar__container ${altColor ? 'top-bar__container--alt' : ''}`}>
       <div className='top-bar__container_wrap'>
-        <img
-          className='top-bar__image'
-          src={altColor ? "/logo-blue.png" : "/logo-white.png"}
-        />
+        <Link href="/">
+          <img
+            className='top-bar__image'
+            src={altColor ? "/logo-blue.png" : "/logo-white.png"}
+          />
+        </Link>
 
         <div className='top-bar__button-container'>
           <Link href='/signup'>
