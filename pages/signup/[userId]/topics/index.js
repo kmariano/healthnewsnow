@@ -3,6 +3,7 @@ import TopBar from "../../../../components/top-bar";
 import fetch from "isomorphic-fetch";
 import "./index.css";
 import useSWR from "swr";
+import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import TopicsList from "../../../../components/topics-list";
 
@@ -51,6 +52,7 @@ const generateTopicSelections = topics => {
 const SignupTopics = ({ userId }) => {
   const { data, error } = useSWR(`/api/users/${userId}`, fetcher);
   const [userTopicSelections, setUserTopicSelections] = useState([]);
+  const router = useRouter();
   useEffect(() => {
     if (data) {
       const topics = _.get(data, ".topics", []);
@@ -93,6 +95,8 @@ const SignupTopics = ({ userId }) => {
       })
       .then(updatedUser => {
         console.log("User successfully updated", updatedUser);
+        const successPagePath = `/signup/${userId}/topics`;
+        router.push(successPagePath);
       })
       .catch(error => {
         console.log("Error saving topics", error);
