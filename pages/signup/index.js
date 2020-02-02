@@ -22,14 +22,10 @@ const Signup = () => {
     })
       .then(res => {
         return res.json();
-        // const newUser = res;
-        // console.log("newUser", newUser);
-        // const userPagePath = `/users/${newUser.id}`;
-        // router.push(userPagePath);
       })
       .then(newUser => {
         console.log("New User", newUser);
-        const userPagePath = `/users/${newUser.id}`;
+        const userPagePath = `/signup/${newUser.id}/topics`;
         router.push(userPagePath);
       })
       .catch(err => console.log("failed", err));
