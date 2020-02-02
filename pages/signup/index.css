@@ -33,4 +33,38 @@
   background-color: #0C5555;
 
   padding: 8px 48px;
+  margin-top: 24px;
+}
+
+.signup-form__banner {
+  background-color: #0C5555;
+}
+
+.signup-form__banner-text {
+  font-size: 18px;
+  color: white;
+  text-align: center;
+
+  max-width: 400px;
+
+  margin: auto;
+  padding: 8px 0 48px;
+}
+
+.signup-form__logo {
+  height: 64px;
+  margin: auto;
+}
+
+.signup-form__title-container {
+  display: flex;
+  justify-content: center;
+}
+
+.signup-form__title {
+  font-size: 28px;
+  color: #929292;
+
+  padding-bottom: 16px;
+  margin-top: -24px;
 }

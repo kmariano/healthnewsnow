@@ -25,6 +25,20 @@ const Signup = () => {
     <>
       <TopBar />
 
+      <div className='signup-form__banner'>
+        <p className='signup-form__banner-text'>
+          {`Staying informed of the latest health news is crucial to keeping your
+          family safe. Sign up today to be notified of known and developing threats.`}
+        </p>
+      </div>
+
+      <div className='signup-form__title-container'>
+        <div>
+          <img src='/logo-blue.png' className='signup-form__logo' />
+          <h1 className='signup-form__title'>Mobile Sign Up</h1>
+        </div>
+      </div>
+
       <form onSubmit={handleSubmit(onSubmit)} className='signup-form__container'>
         <div className='signup-form__input-wrap'>
           <label className='signup-form__label'>Name</label>
