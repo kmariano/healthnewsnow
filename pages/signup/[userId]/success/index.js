@@ -41,6 +41,9 @@ const SignupSuccess = ({ userId }) => {
         .then(newArticles => {
           return fetch(`/api/${currentUser.id}/latest-news`, {
             method: 'POST',
+            headers: {
+              "Content-Type": "application/json"
+            },
             body: JSON.stringify({
               to: currentUser.phoneNumber,
               message: `
