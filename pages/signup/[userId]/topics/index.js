@@ -78,6 +78,11 @@ const SignupTopics = ({ userId }) => {
 
   const saveTopics = () => {};
 
+  let areOptionsSelected = false;
+  userTopicSelections.forEach(t => {
+    if (t.selected) areOptionsSelected = true;
+  });
+
   return (
     <>
       <TopBar altColor />
@@ -108,10 +113,13 @@ const SignupTopics = ({ userId }) => {
 
       <div className='topics__buttons-container'>
         <div className='topics__buttons-container--max-width'>
-          <button className="topics__clear-button" onClick={clearTopics}>
+          <button className="topics__clear-button" style={{ marginRight: 24 }} onClick={clearTopics}>
             Clear
           </button>
-          <button className="topics__confirm-button" onClick={saveTopics}>
+          <button
+            className={!areOptionsSelected ? 'topics__clear-button' : "topics__confirm-button"}
+            onClick={!areOptionsSelected ? () => {} : saveTopics}
+          >
             Submit
           </button>
         </div>
