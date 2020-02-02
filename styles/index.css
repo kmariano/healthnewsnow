@@ -11,5 +11,9 @@
   display: flex;
   justify-content: space-between;
 
-  padding: 25px;
+  padding: 0 50px 0 0;
+}
+
+.top-bar__image {
+  height: 125px;
 }
