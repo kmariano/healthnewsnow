@@ -47,7 +47,9 @@ export const setTopics = async ({ userId, topics }) => {
   const documentPath = `users/${userId}`;
   const userDocReference = await firestore.doc(documentPath);
   await userDocReference.set({ topics }, { merge: true });
-  const userDocSnapShot = userDocReference.get();
+
+  const userDocSnapShot = await userDocReference.get();
+  console.log("Document Snapshot", userDocSnapShot.data());
   return {
     id: userDocSnapshot.id,
     ...userDocSnapShot.data()

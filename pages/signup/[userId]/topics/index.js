@@ -95,7 +95,7 @@ const SignupTopics = ({ userId }) => {
       })
       .then(updatedUser => {
         console.log("User successfully updated", updatedUser);
-        const successPagePath = `/signup/${userId}/topics`;
+        const successPagePath = `/signup/${userId}/success`;
         router.push(successPagePath);
       })
       .catch(error => {
