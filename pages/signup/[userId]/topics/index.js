@@ -112,9 +112,6 @@ const SignupTopics = ({ userId }) => {
         topics: userTopics
       })
     })
-      .then(res => {
-        return res.json();
-      })
       .then(updatedUser => {
         console.log("User successfully updated", updatedUser);
         const successPagePath = `/signup/${userId}/success`;
