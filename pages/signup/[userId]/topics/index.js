@@ -75,6 +75,7 @@ const SignupTopics = ({ userId }) => {
     });
     setUserTopicSelections(changedTopics);
   };
+
   const saveTopics = () => {};
 
   return (
@@ -102,17 +103,18 @@ const SignupTopics = ({ userId }) => {
           onTopicsUpdated={onTopicsChanged}
         />
       </div>
-      <div>
-        <button
-          name="clearButton"
-          className="clearButton"
-          onClick={clearTopics}
-        >
-          CLEAR
-        </button>
-        <button name="clearButton" className="clearButton" onClick={saveTopics}>
-          SAVE
-        </button>
+
+      <div style={{ height: 100 }} />
+
+      <div className='topics__buttons-container'>
+        <div className='topics__buttons-container--max-width'>
+          <button className="topics__clear-button" onClick={clearTopics}>
+            Clear
+          </button>
+          <button className="topics__confirm-button" onClick={saveTopics}>
+            Submit
+          </button>
+        </div>
       </div>
     </>
   );
