@@ -1,13 +1,12 @@
 import * as users from "../../services/users";
 
-export default (req, res) => {
-  res.setHeader("Content-Type", "application/json");
-
+export default async (req, res) => {
   if (req.method === "POST") {
-    const user = users.create(req.body);
-    console.log("user", user);
+    try {
+      const user = await users.create(req.body);
+      return user ? res.status(201).json(user) : res.status(500);
+    } catch (err) {
+      return res.status(500).json(err);
+    }
   }
-
-  res.statusCode = 200;
-  res.end(JSON.stringify({ name: "John Doe" }));
 };
