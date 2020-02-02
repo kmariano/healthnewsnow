@@ -46,7 +46,7 @@ const generateTopicSelections = topics => {
   });
   return topicSelections;
 };
-const SignupTopics = ({ userId }) => {
+const LatestNews = ({ userId }) => {
   const { data, error } = useSWR(`/api/users/${userId}`, fetcher);
   const [userTopicSelections, setUserTopicSelections] = useState([]);
   useEffect(() => {
@@ -57,6 +57,9 @@ const SignupTopics = ({ userId }) => {
   }, [data]);
   if (error) return <div>Error finding user with {userId}</div>;
   if (!data) return <div>Loading....</div>;
+  // const topics = _.get(data, "topics", []);
+  // console.log("topics", topics);
+  // const topicSelections = generateTopicSelections(topics);
 
   const clearTopics = () => {
     const clearedTopics = userTopicSelections.map(u => {
@@ -73,25 +76,7 @@ const SignupTopics = ({ userId }) => {
     setUserTopicSelections(changedTopics);
   };
 
-  const saveTopics = () => {
-    const userTopics =
-      userTopicSelections.filter(u => u.selected).map(u => u.title) || [];
-    fetch(`/api/${userId}/topics`, {
-      method: "POST",
-      body: {
-        topics: userTopics
-      }
-    })
-      .then(res => {
-        return res.json();
-      })
-      .then(updatedUser => {
-        console.log("User successfully updated", updatedUser);
-      })
-      .catch(error => {
-        console.log("Error saving topics", error);
-      });
-  };
+  const saveTopics = () => {};
 
   let areOptionsSelected = false;
   userTopicSelections.forEach(t => {
@@ -150,10 +135,10 @@ const SignupTopics = ({ userId }) => {
     </>
   );
 };
-SignupTopics.getInitialProps = async ({ asPath }) => {
+LatestNews.getInitialProps = async ({ asPath }) => {
   const USER_ID_PATH_INDEX = 2;
   console.log(asPath.split("/"));
   const userId = asPath.split("/")[USER_ID_PATH_INDEX];
   return { userId };
 };
-export default SignupTopics;
+export default LatestNews;
