@@ -16,7 +16,7 @@ const TopBar = ({ altColor = false }) => {
         <div className='top-bar__button-container'>
           <Link href='/signup'>
             <button className={`top-bar__button ${altColor ? 'top-bar__button--alt' : ''}`}>
-              subscribe
+              register
             </button>
           </Link>
           <Link href='/about'>
