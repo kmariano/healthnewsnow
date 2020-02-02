@@ -29,10 +29,33 @@ const knownIllnesses = [
   "Meningitis"
 ];
 const potentialThreats = [
-  "Bioterrrorism",
+  "Bioterrorism",
   "Chemical Spill",
   "Unknown Outbreak"
 ];
+
+const getImage = title => {
+  switch (title) {
+    case 'Coronavirus':
+      return '/coronavirus.png';
+    case 'Vaping Lung Disease':
+      return '/popcorn-lung.png';
+    case 'Ebola':
+      return '/ebola.png';
+    case 'Influenza':
+      return '/flu.png';
+    case 'Cholera':
+      return '/cholera.png';
+    case 'Meningitis':
+      return '/meningitis.png';
+    case 'Unknown Outbreak':
+      return '/unknown-outbreak.png';
+    case 'Bioterrorism':
+      return '/bioterrorism.png';
+    case 'Chemical Spill':
+      return '/chemical-spill.png';
+  }
+}
 
 const generateTopicSelections = topics => {
   console.log("Topics to generate", topics);
@@ -41,8 +64,7 @@ const generateTopicSelections = topics => {
     const selected = topics.includes(a);
     return {
       title: a,
-      imageUrl:
-        "https://i0.wp.com/cdn-prod.medicalnewstoday.com/content/images/articles/322/322223/herpesvirus-in-purple.jpg?w=1155&h=1541",
+      imageUrl: getImage(a),
       selected
     };
   });
