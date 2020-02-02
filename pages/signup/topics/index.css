@@ -1,0 +1,11 @@
+.topics__banner {
+  background-color: #0C5555;
+}
+
+.topics__banner-text {
+  font-size: 32px;
+  color: white;
+  text-align: center;
+
+  padding: 28px 0;
+}
