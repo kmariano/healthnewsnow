@@ -14,7 +14,7 @@ const Home = () => {
             {'Register now to receive breaking health alerts direct to your phone'}
           </p>
           <Link href="signup">
-            <button className='home-page__button'>REGISTER</button>
+            <button className='home-page__button' style={{ marginTop: 24 }}>REGISTER</button>
           </Link>
         </div>
       </div>
@@ -40,6 +40,15 @@ const Home = () => {
           adult children of the elderly, and those that care for these vulnerable
           populations (such as teachers and nurses).`}
         </p>
+      </div>
+
+      <div className='home-page__footer-container'>
+        <p className='home-page__footer-text'>
+          {'Register for HealthNewsNow today to get your health news when you need it. Now.'}
+        </p>
+        <Link href="signup">
+          <button className='home-page__button'>REGISTER</button>
+        </Link>
       </div>
     </>
   );
