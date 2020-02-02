@@ -68,9 +68,9 @@ const SignupTopics = ({ userId }) => {
     setUserTopicSelections(clearedTopics);
   };
 
-  const onTopicsChanged = ({ title, selected }) => {
+  const onTopicsChanged = (title, selected) => {
     const changedTopics = userTopicSelections.map(u => {
-      if (u.title === title) return { ...u, selected };
+      if (u.title === title) return { ...u, selected: !selected };
       else return u;
     });
     setUserTopicSelections(changedTopics);
