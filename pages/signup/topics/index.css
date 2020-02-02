@@ -21,3 +21,9 @@
 
   padding: 16px 0;
 }
+
+.topics__card-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}

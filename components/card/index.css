@@ -1,0 +1,12 @@
+.card__container {
+  flex-basis: 30%;
+
+  padding-bottom: 24px;
+}
+
+.card__title {
+  font-size: 20px;
+  color: #787878;
+
+  padding-bottom: 8px;
+}
