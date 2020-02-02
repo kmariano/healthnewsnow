@@ -1,6 +1,5 @@
 import TopBar from "../../../../components/top-bar";
 import "./index.css";
-import SignupTopics from "../topics";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
@@ -71,7 +70,7 @@ const SignupSuccess = ({ userId }) => {
   );
 };
 
-SignupTopics.getInitialProps = async ({ asPath }) => {
+SignupSuccess.getInitialProps = async ({ asPath }) => {
   const USER_ID_PATH_INDEX = 2;
   console.log(asPath.split("/"));
   const userId = asPath.split("/")[USER_ID_PATH_INDEX];

@@ -44,14 +44,20 @@ export const findById = async userId => {
 };
 
 export const setTopics = async ({ userId, topics }) => {
-  const documentPath = `users/${userId}`;
-  const userDocReference = await firestore.doc(documentPath);
-  await userDocReference.set({ topics }, { merge: true });
+  try {
+    const documentPath = `users/${userId}`;
+    console.log("Document Path", documentPath);
+    const userDocReference = await firestore.doc(documentPath);
+    await userDocReference.set({ topics }, { merge: true });
 
-  const userDocSnapShot = await userDocReference.get();
-  // console.log("Document Snapshot", userDocSnapShot.data());
-  return {
-    id: userDocSnapshot.id,
-    ...userDocSnapShot.data()
-  };
+    const userDocSnapShot = await userDocReference.get();
+    // console.log("Document Snapshot", userDocSnapShot.data());
+    return {
+      id: userDocSnapshot.id,
+      ...userDocSnapShot.data()
+    };
+  } catch (error) {
+    console.log("Error", error);
+    return null;
+  }
 };
