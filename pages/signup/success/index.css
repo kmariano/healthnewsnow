@@ -25,3 +25,25 @@
   font-size: 36px;
   padding-top: 28px;
 }
+
+.signup-success__container--green {
+  background-color: #0f565633;
+  padding: 16px 28px;
+}
+
+.signup-success__container {
+  padding: 16px 28px;
+}
+
+.signup-success__article-title {
+  font-size: 20px;
+  color: grey;
+}
+
+.signup-success__article-item {
+  font-weight: bold;
+  font-size: 16px;
+  color: #0f5656;
+
+  padding-top: 12px;
+}
