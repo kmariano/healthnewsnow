@@ -12,6 +12,17 @@
   height: 125px;
 }
 
-.top-bar__button-container {}
+.top-bar__button-container {
+  display: flex;
+  align-items: center;
 
-.top-bar__button {}
+  padding-right: 16px;
+}
+
+.top-bar__button {
+  font-size: 20px;
+  color: white;
+
+  margin-right: 24px;
+  height: fit-content;
+}
