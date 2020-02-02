@@ -28,59 +28,38 @@ const knownIllnesses = [
   "Meningitis"
 ];
 const potentialThreats = [
-  "Bioterrorism",
+  "Bioterrrorism",
   "Chemical Spill",
   "Unknown Outbreak"
 ];
 
-const getImage = title => {
-  switch (title) {
-    case 'Coronavirus':
-      return '/coronavirus.png';
-    case 'Vaping Lung Disease':
-      return '/popcorn-lung.png';
-    case 'Ebola':
-      return '/ebola.png';
-    case 'Influenza':
-      return '/flu.png';
-    case 'Cholera':
-      return '/cholera.png';
-    case 'Meningitis':
-      return '/meningitis.png';
-    case 'Unknown Outbreak':
-      return '/unknown-outbreak.png';
-    case 'Bioterrorism':
-      return '/bioterrorism.png';
-    case 'Chemical Spill':
-      return '/chemical-spill.png';
-  }
-}
-
 const generateTopicSelections = topics => {
-  console.log("Topics to generate", topics);
   const allTopics = [...knownIllnesses, ...potentialThreats];
   const topicSelections = allTopics.map(a => {
     const selected = topics.includes(a);
     return {
       title: a,
-      imageUrl: getImage(a),
+      imageUrl:
+        "https://i0.wp.com/cdn-prod.medicalnewstoday.com/content/images/articles/322/322223/herpesvirus-in-purple.jpg?w=1155&h=1541",
       selected
     };
   });
   return topicSelections;
 };
-
-const SignupTopics = ({ userId }) => {
+const LatestNews = ({ userId }) => {
   const { data, error } = useSWR(`/api/users/${userId}`, fetcher);
   const [userTopicSelections, setUserTopicSelections] = useState([]);
   useEffect(() => {
     if (data) {
-      const topics = _.get(data, ".topics", []);
+      const topics = _.get(data, "topics", []);
       setUserTopicSelections(generateTopicSelections(topics));
     }
   }, [data]);
   if (error) return <div>Error finding user with {userId}</div>;
   if (!data) return <div>Loading....</div>;
+  // const topics = _.get(data, "topics", []);
+  // console.log("topics", topics);
+  // const topicSelections = generateTopicSelections(topics);
 
   const clearTopics = () => {
     const clearedTopics = userTopicSelections.map(u => {
@@ -97,29 +76,7 @@ const SignupTopics = ({ userId }) => {
     setUserTopicSelections(changedTopics);
   };
 
-  const saveTopics = () => {
-    const userTopics =
-      userTopicSelections.filter(u => u.selected).map(u => u.title) || [];
-    console.log("User Topics", userTopics);
-    fetch(`/api/${userId}/topics`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        topics: userTopics
-      })
-    })
-      .then(res => {
-        return res.json();
-      })
-      .then(updatedUser => {
-        console.log("User successfully updated", updatedUser);
-      })
-      .catch(error => {
-        console.log("Error saving topics", error);
-      });
-  };
+  const saveTopics = () => {};
 
   let areOptionsSelected = false;
   userTopicSelections.forEach(t => {
@@ -178,10 +135,10 @@ const SignupTopics = ({ userId }) => {
     </>
   );
 };
-SignupTopics.getInitialProps = async ({ asPath }) => {
+LatestNews.getInitialProps = async ({ asPath }) => {
   const USER_ID_PATH_INDEX = 2;
   console.log(asPath.split("/"));
   const userId = asPath.split("/")[USER_ID_PATH_INDEX];
   return { userId };
 };
-export default SignupTopics;
+export default LatestNews;
