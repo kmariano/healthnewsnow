@@ -1,4 +1,4 @@
-import * as users from "../../services/users";
+import * as users from "../../../services/users";
 
 export default async (req, res) => {
   if (req.method === "POST") {
