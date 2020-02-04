@@ -104,3 +104,5 @@ dist
 .tern-port
 
 hnn-gcp-credentials.json
+
+.env.production

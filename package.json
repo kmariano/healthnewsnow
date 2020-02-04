@@ -34,7 +34,6 @@
     "unfetch": "^4.1.0"
   },
   "devDependencies": {
-    "autoprefixer": "^9.7.4",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.7.0",
     "tailwindcss": "^1.1.4"

@@ -1,5 +1,12 @@
+import getConfig from "next/config";
 const { Firestore } = require("@google-cloud/firestore");
-const firestore = new Firestore();
+const { serverRuntimeConfig } = getConfig();
+
+const options = {
+  projectId: serverRuntimeConfig.google.firestore.projectId,
+  credentials: serverRuntimeConfig.google.firestore.credentials
+};
+const firestore = new Firestore(options);
 
 export const create = async ({ name, phoneNumber, city, state }) => {
   //Check to see if the phone number already exists
